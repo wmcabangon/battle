@@ -17,10 +17,6 @@ class Game
     @players.last
   end
 
-  def attack(player = players.last)
-    player.receive_damage
-  end
-
   def switch_turns
     @current_turn = opponent_of(current_turn)
   end
@@ -29,9 +25,18 @@ class Game
     players.select { |player| player != the_player }.first
   end
 
-  private
+  def game_over?
+    losing_player.any?
+  end
 
+  def loser
+    losing_player.first
+  end
+
+  private
   attr_reader :players
 
-
+  def losing_player
+    players.select { |player| player.hit_points <= 0 }
+  end
 end

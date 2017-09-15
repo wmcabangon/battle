@@ -6,17 +6,13 @@ feature 'Can attack player' do
   end
   scenario 'reduce player 2 HP by 10' do
     sign_in_and_play
-    click_button 'Attack'
-    click_button 'OK'
+    attack_and_confirm
     expect(page).not_to have_content 'Wes: 100HP'
     expect(page).to have_content 'Wes: 90HP'
   end
   scenario 'reduce player 1 HP by 10' do
     sign_in_and_play
-    click_button 'Attack'
-    click_button 'OK'
-    click_button 'Attack'
-    click_button 'OK'
+    2.times { attack_and_confirm }
     expect(page).not_to have_content 'Will: 100HP'
     expect(page).to have_content 'Will: 90HP'
   end
